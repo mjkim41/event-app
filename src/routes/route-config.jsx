@@ -3,6 +3,7 @@ import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
 import EventsPage from "../pages/EventsPage";
 import RootLayout from "../layout/RootLayout";
+import EventsDetailPage from "../pages/EventsDetailPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: '/events',
                 element: <EventsPage />,
+            },
+            {
+                path: '/events/:eventId',
+                element: <EventsDetailPage />,
             },
         ],
     },

@@ -27,3 +27,8 @@ const EventsPage = () => {
 };
 
 export default EventsPage;
+
+// loader 아웃소싱
+export const loader = async () => {
+    return await fetch(`http://localhost:9000/api/events`);
+}

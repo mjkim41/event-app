@@ -10,10 +10,15 @@ const router = createBrowserRouter([
         path: '/',
         element: <RootLayout />,
         errorElement: <ErrorPage />,
+        loader: async () => {
+            // console.log('event loader call');
+            const response = await fetch(`http://localhost:9000/api/events`);
+            return await response.json();
+        },
         children: [
             {
                 index: true,
-                element: <HomePage />
+                element: <HomePage />,
             },
             {
                 path: '/events',

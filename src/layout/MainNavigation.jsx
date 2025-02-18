@@ -3,6 +3,11 @@ import styles from './MainNavigation.module.scss';
 
 const MainNavigation = () => {
 
+    // NavLink에 className 바인딩 하는 함수
+    const activeFn = ({isActive}) => {
+        return isActive? styles.active : '';
+    };
+
     return (
         <header className={styles.header}>
             <nav>
@@ -10,13 +15,14 @@ const MainNavigation = () => {
                     <li>
                         <NavLink
                             to='/'
-                            end
-                        >
+                            className={activeFn}
+                            end>
                             Home
                         </NavLink>
                     </li>
                     <li>
                         <NavLink
+                            className={activeFn}
                             to='/events'
                         >
                             Events

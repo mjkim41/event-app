@@ -5,7 +5,7 @@ import EventsPage, { loader as eventsLoader } from '../pages/EventsPage';
 import RootLayout from '../layout/RootLayout';
 import EventDetailPage, { loader as eventDetailLoader } from '../pages/EventDetailPage';
 import EventLayout from '../layout/EventLayout';
-import NewEventPage, {action as saveAction} from '../pages/NewEventPage';
+import NewEventPage, {action as manipulateAction} from '../pages/NewEventPage';
 import EditPage from "../pages/EditPage.jsx";
 
 
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
                     {
                         path: 'new',
                         element: <NewEventPage />,
-                        action: saveAction // 비동기 put, delete, post
+                        action: manipulateAction // 비동기 put, delete, post
                     },
                     {
                         path: ':eventId',
@@ -43,6 +43,7 @@ const router = createBrowserRouter([
                         path: ':eventId/edit',
                         element: <EditPage />,
                         loader: eventDetailLoader,
+                        action: manipulateAction
                     }
                 ],
             },

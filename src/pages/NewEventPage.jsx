@@ -15,7 +15,7 @@ export default NewEventPage;
 //     3. parameter로 props.request 받고,
 //     4. "await" request.formData();로 form data의 데이터 가져오기
 //     5. redirect() 로 페이지 이동
-export const action = async ({request}) => {
+export const action = async ({request, params}) => {
 
     console.log(request);
 
@@ -30,8 +30,14 @@ export const action = async ({request}) => {
     };
     // console.log(payload);
 
+    // 서버 요청 url을 요청 방식에 따라 동적으로 변경
+    let requestUrl = `http://localhost:9000/api/events`;
+    if (request.method === 'PUT') {
+        requestUrl += `/${params.eventId}`;
+    }
+
     // 서버로 페칭
-    const response = await fetch(`http://localhost:9000/api/events`, {
+    const response = await fetch(requestUrl, {
         method: request.method,
         headers: {
             'Content-Type': 'application/json',

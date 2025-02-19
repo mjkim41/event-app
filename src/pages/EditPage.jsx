@@ -2,7 +2,7 @@ import EventForm from "../components/EventForm.jsx";
 
 const EditPage = () => {
 
-    return <EventForm />
+    return <EventForm method='PUT'/>
 
 };
 

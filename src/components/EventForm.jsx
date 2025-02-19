@@ -10,6 +10,9 @@ const EventForm = ({ method, event={} }) => {
 
     // 날짜를 0000-00-00 형식으로
     const formatDate = (date) => {
+
+        if (!date) return;
+
         const [yearPart, monthDayPart] = date.split('년 ');
         const [monthPart, dayPart] = monthDayPart.split('월 ');
 

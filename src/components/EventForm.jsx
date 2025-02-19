@@ -92,7 +92,8 @@ const EventForm = () => {
                 />
             </p>
             <div className={styles.actions}>
-                <button type='button'>Cancel</button>
+                 {/*navigate('..') : /events/new -> /events로 이동*/}
+                <button type='button' onClick={() => navigate('..')}>Cancel</button>
                 <button>Save</button>
             </div>
         </Form>

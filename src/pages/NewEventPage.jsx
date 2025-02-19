@@ -1,4 +1,5 @@
 import EventForm from "../components/EventForm";
+import {redirect} from "react-router-dom";
 
 const NewEventPage = () => {
     return <EventForm />;

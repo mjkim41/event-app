@@ -38,6 +38,10 @@ const router = createBrowserRouter([
                         element: <EventDetailPage />,
                         loader: eventDetailLoader,
                     },
+                    {
+                        path: ':eventId/edit',
+                        element: <h1>Edit Page</h1>
+                    }
                 ],
             },
         ],

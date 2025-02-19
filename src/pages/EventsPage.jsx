@@ -18,13 +18,18 @@ const EventsPage = () => {
     // 더 이상 가져올 데이터가 있는지 여부
     const [isFinish, setIsFinish] = useState(false);
 
+    // 로딩바를 보여주깅 위한 여부
+    const [loading, setLoading] = useState(false);
+
     // 서버에서 데이터를 불러오는 함수
     const fetchEvents = async () => {
 
-        if (isFinish) return;
+        if (isFinish || loading) return;
 
         const response = await fetch(`http://localhost:9000/api/events?sort=id&page=${currentPage}`);
         const { hasNext, eventList: events } = await response.json();
+
+        setLoading(true);
 
         // 강제로 2초간 로딩 부여
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -33,6 +38,8 @@ const EventsPage = () => {
         setIsFinish(!hasNext);
         // 페이지번호 갱신
         setCurrentPage(prev => prev + 1);
+
+        setLoading(false);
     };
 
 
@@ -43,7 +50,7 @@ const EventsPage = () => {
         // 무한스크롤 옵저버 생성
         const observer = new IntersectionObserver(([target]) => {
             // entries는 옵저버가 감시하고 있는 대상들의 집합배열
-            if (!target.isIntersecting || isFinish) {
+            if (!target.isIntersecting || isFinish || loading) {
                 return;
             }
             fetchEvents();
@@ -73,6 +80,7 @@ const EventsPage = () => {
             {/* 무한스크롤을 위한 옵저버 감시 태그 */}
             <div ref={observerRef} style={{ height: 300, background: 'yellow' }}>
                 {/* 로딩 바 or 로딩 프로그레스바 or 스켈레톤 폴백 */}
+                {loading && <h1>로딩 중</h1>}
             </div>
         </>
     );

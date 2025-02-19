@@ -1,8 +1,12 @@
 import EventForm from "../components/EventForm.jsx";
+import {useLoaderData} from "react-router-dom";
 
 const EditPage = () => {
 
-    return <EventForm method='PUT'/>
+    const eventDetail = useLoaderData();
+    console.log(eventDetail);
+
+    return <EventForm method='PUT' event={eventDetail}/>
 
 };
 

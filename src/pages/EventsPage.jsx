@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import EventList from "../components/EventList";
+import EventSkeleton from "../components/EventSkeleton";
 
 const EventsPage = () => {
 
@@ -18,7 +19,7 @@ const EventsPage = () => {
     // 더 이상 가져올 데이터가 있는지 여부
     const [isFinish, setIsFinish] = useState(false);
 
-    // 로딩바를 보여주깅 위한 여부
+    // 로딩바를 보여주기 여부
     const [loading, setLoading] = useState(false);
 
     // 서버에서 데이터를 불러오는 함수
@@ -26,13 +27,12 @@ const EventsPage = () => {
 
         if (isFinish || loading) return;
 
+        // 강제로 2초간 로딩 부여
+        setLoading(true);
+        await new Promise(r => setTimeout(r, 1200));
+
         const response = await fetch(`http://localhost:9000/api/events?sort=id&page=${currentPage}`);
         const { hasNext, eventList: events } = await response.json();
-
-        setLoading(true);
-
-        // 강제로 2초간 로딩 부여
-        await new Promise((resolve) => setTimeout(resolve, 1000));
 
         setEventList(prev => [...prev, ...events]);
         setIsFinish(!hasNext);
@@ -78,9 +78,12 @@ const EventsPage = () => {
         <>
             <EventList eventList={eventList} />
             {/* 무한스크롤을 위한 옵저버 감시 태그 */}
-            <div ref={observerRef} style={{ height: 300, background: 'yellow' }}>
+            <div
+                ref={observerRef}
+                style={{ height: 100 }}
+            >
                 {/* 로딩 바 or 로딩 프로그레스바 or 스켈레톤 폴백 */}
-                {loading && <h1>로딩 중</h1>}
+                {loading && <EventSkeleton />}
             </div>
         </>
     );

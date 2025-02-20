@@ -1,8 +1,9 @@
 import {useEffect, useRef, useState} from "react";
 import {AUTH_API_URL} from "../../config/host-config.js";
 import styles from './SignupForm.module.scss';
+import { debounce } from 'lodash';
 
-const EmailInput = () => {
+const EmailInput = ({onSuccess}) => {
 
     const emailRef = useRef();
 
@@ -35,10 +36,10 @@ const EmailInput = () => {
             const { isDuplicate, message } = await response.json();
             if (isDuplicate) {
                 setError(message);
+            } else {
+                onSuccess(); // 상위 컴포넌트에 step2로 넘어가도 된다고 알려주기
             }
         })();
-
-
 
         setError(null);
 
@@ -51,7 +52,7 @@ const EmailInput = () => {
                 ref={emailRef}
                 type="email"
                 placeholder="Enter your email"
-                onChange={handleEmail}
+                onChange={debounce(handleEmail, 1000)}
                 className={error? styles.invalidInput : ''}
             />
             {error && <p className={styles.errorMessage}> {error}</p>}

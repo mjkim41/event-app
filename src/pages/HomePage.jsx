@@ -1,7 +1,12 @@
-const HomePage = () => {
+import {Outlet} from "react-router-dom";
+
+const HomeLayout = () => {
     return (
-        <h1>My Home Page</h1>
+        <>
+            <h1>My Home Page</h1>
+            <Outlet/>
+        </>
     )
 }
 
-export default HomePage
+export default HomeLayout

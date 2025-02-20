@@ -8,7 +8,6 @@ import EventLayout from '../layout/EventLayout';
 import NewEventPage, {action as manipulateAction} from '../pages/NewEventPage';
 import EditPage from "../pages/EditPage.jsx";
 
-
 const router = createBrowserRouter([
     {
         path: '/',

@@ -1,23 +1,21 @@
-import EventForm from "../components/EventForm";
-import {redirect} from "react-router-dom";
+import { redirect } from 'react-router-dom';
+import EventForm from '../components/EventForm';
+import { EVENT_API_URL } from '../config/host-config';
 
 const NewEventPage = () => {
-    return <EventForm method='POST'/>;
+    return <EventForm method='POST' />;
 };
 
 export default NewEventPage;
 
+// action함수 생성하고 내보내기
+/*
+  action함수 트리거방법
+  1. form태그를 Form태그로 변경해야 함
+*/
+export const action = async ({ request, params }) => {
 
-// Action : PUT, DELETE, DELETE 요청 시 사용
-//  - 트리거 방법 :
-//     1. form 태그를 대문자 Form 태그로 변경
-//     2. method 옵션을 설정
-//     3. parameter로 props.request 받고,
-//     4. "await" request.formData();로 form data의 데이터 가져오기
-//     5. redirect() 로 페이지 이동
-export const action = async ({request, params}) => {
-
-    console.log(request);
+    // console.log('이벤트 생성 요청 보내기!!');
 
     // action함수에서 form에 입력한 값 가져오기
     const formData = await request.formData();
@@ -30,8 +28,9 @@ export const action = async ({request, params}) => {
     };
     // console.log(payload);
 
-    // 서버 요청 url을 요청 방식에 따라 동적으로 변경
-    let requestUrl = `http://localhost:9000/api/events`;
+
+    // 서버 요청 URL을 요청방식에 따라 동적으로 변경
+    let requestUrl = EVENT_API_URL;
     if (request.method === 'PUT') {
         requestUrl += `/${params.eventId}`;
     }
@@ -47,5 +46,4 @@ export const action = async ({request, params}) => {
 
     // 다른페이지로 이동하는 방법
     return redirect('/events'); // 목록페이지로 이동
-}
-
+};

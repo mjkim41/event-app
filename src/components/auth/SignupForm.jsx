@@ -5,6 +5,9 @@ import {useState} from "react";
 import ProgressBar from "../common/ProgressBar.jsx";
 
 const SignUpForm = () => {
+    
+    // 입력한 이메일 상태 관리
+    const [enteredEmail, setEnteredEmail] = useState();
 
     // 현재 어떤 스텝에 위치하고 있는지
     const [step, setStep] = useState(1);
@@ -13,8 +16,8 @@ const SignUpForm = () => {
     const [success, setSuccess] = useState(false);
 
     // 이메일 중복확인이 끝났을 떄 호출될 함수
-    const emailSuccessHandler = () => {
-
+    const emailSuccessHandler = (email) => {
+        setEnteredEmail(email);
         setSuccess(true);
         setTimeout(() => {
             setStep(2)

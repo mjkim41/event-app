@@ -6,7 +6,7 @@ const VerificationInput = () => {
     const inputsRef = useRef([]);
 
     // 입력한 인증코드 숫자값을 관리
-    const [codes, setCodes] = useState(['','','','']);
+    const [codes, setCodes] = useState(['', '', '', '']);
 
     // input태그들을 ref에 바인딩
     const bindInputRef = ($input, index) => {
@@ -26,25 +26,33 @@ const VerificationInput = () => {
 
     // 입력이벤트
     const handleNumber = (e, index) => {
-
-        // 입력한 모든 숫자를 하나로 연결
         const inputValue = e.target.value;
 
+        // 빈 문자열(삭제)은 허용하고, 입력값이 한 자리 숫자가 아니면 무시
+        if (inputValue !== '' && !/^\d$/.test(inputValue)) {
+            return;
+        }
+
+        // 입력한 모든 숫자를 하나로 연결
         const copyCodes = [...codes];
-        copyCodes[index-1] = inputValue;
+        copyCodes[index - 1] = inputValue;
 
         setCodes(copyCodes);
 
         // 입력이 끝나면 다음 칸으로 포커스 이동
-        focusNextInput(index);
+        if (inputValue !== '') {
+            focusNextInput(index);
+        }
+
     };
+
 
     // 초기 렌더링시 첫번째 input에 포커싱
     useEffect(() => {
-        // inputsRef.current[0].focus();
-        console.log(codes);
+        inputsRef.current[0].focus();
+        // console.log(codes.join(''));
 
-    }, [codes]);
+    }, []);
 
     return (
         <>
@@ -57,7 +65,8 @@ const VerificationInput = () => {
                         type='text'
                         className={styles.codeInput}
                         maxLength={1}
-                        onChange={e => handleNumber(e, index + 1)}
+                        onChange={(e) => handleNumber(e, index + 1)}
+                        value={codes[index]}
                     />
                 ))}
             </div>

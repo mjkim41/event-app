@@ -1,4 +1,4 @@
-import {Form, Link, useActionData} from 'react-router-dom'; // Link 컴포넌트 추가
+import {Form, Link, redirect, useActionData} from 'react-router-dom'; // Link 컴포넌트 추가
 import styles from './LoginForm.module.scss';
 import {AUTH_API_URL} from "../../config/host-config.js";
 import {useState} from "react";
@@ -107,11 +107,15 @@ export default LoginForm;
      });
 
      const data = await response.json();
-     console.log(data);
 
      if (response.status === 422) {
          // 서버가 가져온 데이터를 컴포넌트에서 사용할 사용할 수 있도록 데이터 리턴
          return data.message;
      }
+
+     // 로그인 성공 시, local storage에 인증 정보 저장
+     localStorage.setItem("userData", JSON.stringify(data));
+
+     return redirect('/');
  };
 

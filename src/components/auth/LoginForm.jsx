@@ -7,41 +7,41 @@ const LoginForm = () => {
 
     // action 함수가 리턴한 데이터 받아오기
     const error = useActionData();
+    console.log(error);
 
     // 에러 정보 상태 관리
     // const [error, setError] = useState('');
 
-    const handleSubmit = e => {
-        e.preventDefault();
-
-        (async () => {
-            // 입력 데이터 읽기
-            const formData = new FormData(e.target);
-
-            const payload = {
-                email: formData.get('email'),
-                password: formData.get('password')
-            }
-
-            const response = await fetch(`${AUTH_API_URL}/login`, {
-                method: 'POST',
-                headers : { 'Content-Type' : 'application/json'},
-                body: JSON.stringify(payload),
-            });
-
-            const data = await response.json();
-            console.log(data);
-
-            // 로그인 실패
-            if (response.status === 422) {
-                setError(data.message);
-            }
-
-        })
-        ();
-
-
-    };
+    // const handleSubmit = e => {
+    //     e.preventDefault();
+    //
+    //     (async () => {
+    //         // 입력 데이터 읽기
+    //         const formData = new FormData(e.target);
+    //
+    //         const payload = {
+    //             email: formData.get('email'),
+    //             password: formData.get('password')
+    //         }
+    //
+    //         const response = await fetch(`${AUTH_API_URL}/login`, {
+    //             method: 'POST',
+    //             headers : { 'Content-Type' : 'application/json'},
+    //             body: JSON.stringify(payload),
+    //         });
+    //
+    //         const data = await response.json();
+    //         console.log(data);
+    //
+    //         // 로그인 실패
+    //         if (response.status === 422) {
+    //             setError(data.message);
+    //         }
+    //
+    //     })
+    //     ();
+    //
+    // };
 
     return (
         <>

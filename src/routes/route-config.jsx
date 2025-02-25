@@ -18,6 +18,8 @@ const router = createBrowserRouter([
         path: '/',
         element: <RootLayout />,
         errorElement: <ErrorPage />,
+        loader: userDataLoader,
+        id: 'user-data',
         children: [
             {
                 path: '/',
@@ -27,7 +29,6 @@ const router = createBrowserRouter([
                         index: true,
                         element: <WelcomePage />,
                         action: loginAction,
-                        loader: userDataLoader
                     }, // 웰컴페이지 (로그인 화면 or 로그인 완료시 보여줄 화면)
                     {
                         path: '/sign-up',

@@ -1,5 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
-import ErrorPage from '../pages/ErrorPage';
+import {createBrowserRouter, redirect} from 'react-router-dom';
+// import ErrorPage from '../pages/ErrorPage';
 import EventsPage, { loader as eventsLoader } from '../pages/EventsPage';
 import RootLayout from '../layout/RootLayout';
 import EventDetailPage, { loader as eventDetailLoader, deleteAction } from '../pages/EventDetailPage';
@@ -10,14 +10,14 @@ import HomeLayout from '../layout/HomeLayout';
 import WelcomePage from '../pages/WelcomePage';
 import SignUpPage from '../pages/SignUpPage';
 import {loginAction} from "../components/auth/LoginForm.jsx";
-import {userDataLoader} from "../config/auth-config.js";
+import {logoutAction, userDataLoader} from "../config/auth-config.js";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <RootLayout />,
-        errorElement: <ErrorPage />,
+        // errorElement: <ErrorPage />,
         loader: userDataLoader,
         id: 'user-data',
         children: [
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
                     {
                         path: '/sign-up',
                         element: <SignUpPage />
+                    },
+                    {
+                        path: '/logout',
+                        action: logoutAction
                     }
                 ]
             },

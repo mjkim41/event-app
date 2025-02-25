@@ -7,7 +7,6 @@ const LoginForm = () => {
 
     // action 함수가 리턴한 데이터 받아오기
     const error = useActionData();
-    console.log(error);
 
     // 에러 정보 상태 관리
     // const [error, setError] = useState('');

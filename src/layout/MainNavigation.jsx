@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import {Form, NavLink} from 'react-router-dom';
 import styles from './MainNavigation.module.scss';
 import {userDataLoader} from "../config/auth-config.js";
 
@@ -32,11 +32,14 @@ const MainNavigation = () => {
                         </NavLink>
                     </li>
 
-                    { userData &&
-                      <li>
-                          <button style={{width: '100%'}}>Logout</button>
-                      </li>
-                    }
+                    {userData && (
+                        <li>
+                            <Form action='/logout' method='POST'>
+                                <button style={{ width: '100%' }}>Logout</button>
+                            </Form>
+                        </li>
+                    )}
+
                 </ul>
             </nav>
         </header>

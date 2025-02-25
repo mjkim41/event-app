@@ -1,3 +1,4 @@
+import {Form} from "react-router-dom";
 
 const Main = ({userData}) => {
 
@@ -9,7 +10,12 @@ const Main = ({userData}) => {
         <>
             <h2>{userName}님, ㅎㅇㅎㅇ</h2>
             <h3>현재 권한  [ {role} ]</h3>
-            <button>로그아웃</button>
+
+            <Form
+                action='/logout'
+                method='POST'>
+                <button>Logout</button>
+            </Form>
         </>
     );
 };

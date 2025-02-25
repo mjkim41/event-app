@@ -1,6 +1,8 @@
 import { redirect } from 'react-router-dom';
 import EventForm from '../components/EventForm';
 import { EVENT_API_URL } from '../config/host-config';
+import { getUserToken } from '../config/auth-config';
+import { fetchWithAuth } from '../services/api';
 
 const NewEventPage = () => {
     return <EventForm method='POST' />;
@@ -36,13 +38,7 @@ export const action = async ({ request, params }) => {
     }
 
     // 서버로 페칭
-    const response = await fetch(requestUrl, {
-        method: request.method,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-    });
+    const response = await fetchWithAuth(requestUrl, request.method, payload);
 
     // 다른페이지로 이동하는 방법
     return redirect('/events'); // 목록페이지로 이동

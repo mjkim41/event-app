@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { redirect, useLoaderData, useParams } from 'react-router-dom';
+import { redirect, useLoaderData } from 'react-router-dom';
 import EventItem from '../components/EventItem';
 import { EVENT_API_URL } from '../config/host-config';
-
+import { getUserToken } from '../config/auth-config';
+import { fetchWithAuth } from '../services/api';
 
 
 const EventDetailPage = () => {
@@ -20,8 +20,6 @@ const EventDetailPage = () => {
     //     );
     //     const data = await response.json();
     //     setEventData(data);
-
-
     //   };
 
     //   fetchDetailEvent();
@@ -39,7 +37,7 @@ export const loader = async ({ params }) => {
     // console.log(x);
     // console.log(params.eventId);
 
-    const response = await fetch(`EVENT_API_URL/${eventId}`);
+    const response = await fetchWithAuth(`${EVENT_API_URL}/${eventId}`);
 
     return response;
 };
@@ -51,7 +49,7 @@ export const deleteAction = async ({ params }) => {
 
     if (!confirm('정말 삭제하시겠습니까?')) return;
 
-    const res = await fetch(`http://localhost:9000/api/events/${params.eventId}`, { method: 'DELETE' });
+    const res = await fetchWithAuth(`${EVENT_API_URL}/${params.eventId}`, 'DELETE');
 
     return redirect('/events');
 };

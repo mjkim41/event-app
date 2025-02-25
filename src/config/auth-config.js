@@ -34,3 +34,8 @@ export const authCheckLoader = () => {
   }
   return null; // 현재 페이지에 머뭄
 }
+
+// 인증 토큰을 가져다주는 함수
+export const getUserToken = () => {
+  return getUserData()?.token;
+}

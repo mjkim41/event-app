@@ -17,5 +17,3 @@ const EventProvider = ({ children }) => {
 };
 
 export default EventProvider;
-
-<

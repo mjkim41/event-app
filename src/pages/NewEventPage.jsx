@@ -1,10 +1,10 @@
-import {redirect, useNavigate} from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import EventForm from '../components/EventForm';
 import { EVENT_API_URL } from '../config/host-config';
-import {getUserRole, getUserToken} from '../config/auth-config';
 import { fetchWithAuth } from '../services/api';
-import {useContext, useEffect} from "react";
-import EventContext from "../context/event-context.js";
+import { useContext, useEffect } from 'react';
+import { getUserRole } from '../config/auth-config';
+import EventContext from '../context/event-context';
 
 const NewEventPage = () => {
 
@@ -12,19 +12,17 @@ const NewEventPage = () => {
 
     const { totalEventCount } = useContext(EventContext);
 
-    // 권한 검사 + 이벤트 검사
-    // 로그인을 하면, 백엔드에서 token을 생성해서 전달해주면, 프론트에서 localStorage에 저장해놓음. localstorage에서 role 값을 가져옴
+    // 권한 검사 + 이벤트개수 검사
     useEffect(() => {
         const role = getUserRole();
         if (role) {
-            // console.log(`당신의 권한은 ${role}입니다`);
-            // console.log(`당신이 생성한 이벤트 개수는 ${totalEventCount}개입니다.`);
             if (role === 'COMMON' && totalEventCount >= 4) {
-                alert('일반 회원은 이벤트 생성시 4개로 제한됩니다.');
+                alert('일반 회원은 이벤트 생성이 4개로 제한됩니다.');
                 navigate('/');
             }
         }
     }, [totalEventCount]);
+
     return <EventForm method='POST' />;
 };
 

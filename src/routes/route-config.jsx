@@ -1,5 +1,5 @@
-import {createBrowserRouter, redirect} from 'react-router-dom';
-// import ErrorPage from '../pages/ErrorPage';
+import { createBrowserRouter } from 'react-router-dom';
+import ErrorPage from '../pages/ErrorPage';
 import EventsPage, { loader as eventsLoader } from '../pages/EventsPage';
 import RootLayout from '../layout/RootLayout';
 import EventDetailPage, { loader as eventDetailLoader, deleteAction } from '../pages/EventDetailPage';
@@ -9,18 +9,18 @@ import EditPage from '../pages/EditPage';
 import HomeLayout from '../layout/HomeLayout';
 import WelcomePage from '../pages/WelcomePage';
 import SignUpPage from '../pages/SignUpPage';
-import {loginAction} from "../components/auth/LoginForm.jsx";
-import {authCheckLoader, logoutAction, userDataLoader} from "../config/auth-config.js";
-import EventProvider from "../context/EventProvider.jsx";
+import { loginAction } from '../components/auth/LoginForm';
+import { authCheckLoader, logoutAction, userDataLoader } from '../config/auth-config';
+import EventProvider from '../context/EventProvider';
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <RootLayout />,
-        // errorElement: <ErrorPage />,
-        loader: userDataLoader,
-        id: 'user-data',
+        errorElement: <ErrorPage />,
+        loader: userDataLoader, // 로그인한 유저정보 불러오기
+        id: 'user-data', // loader는 children들에게 전달되지 않음
         children: [
             {
                 path: '/',
@@ -33,13 +33,13 @@ const router = createBrowserRouter([
                     }, // 웰컴페이지 (로그인 화면 or 로그인 완료시 보여줄 화면)
                     {
                         path: '/sign-up',
-                        element: <SignUpPage />
+                        element: <SignUpPage />,
                     },
                     {
                         path: '/logout',
-                        action: logoutAction
-                    }
-                ]
+                        action: logoutAction,
+                    },
+                ],
             },
             {
                 path: '/events',
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
                         <EventLayout />
                     </EventProvider>
                 ),
-                loader: authCheckLoader, // 로그인 권한 검사 로더
+                loader: authCheckLoader, //로그인 권한 검사 로더
                 children: [
                     {
                         index: true,
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
                         path: ':eventId',
                         element: <EventDetailPage />,
                         loader: eventDetailLoader,
-                        action: deleteAction
+                        action: deleteAction,
                     },
                     {
                         path: ':eventId/edit',

@@ -39,3 +39,8 @@ export const authCheckLoader = () => {
 export const getUserToken = () => {
   return getUserData()?.token;
 }
+
+// 권한을 가져다 후는 함수
+export const getUserRole = () => {
+  return getUserData()?.role;
+}

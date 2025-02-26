@@ -11,6 +11,7 @@ import WelcomePage from '../pages/WelcomePage';
 import SignUpPage from '../pages/SignUpPage';
 import {loginAction} from "../components/auth/LoginForm.jsx";
 import {authCheckLoader, logoutAction, userDataLoader} from "../config/auth-config.js";
+import EventProvider from "../context/EventProvider.jsx";
 
 
 const router = createBrowserRouter([
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/events',
-                element: <EventLayout />,
+                element: (
+                    <EventProvider>
+                        <EventLayout />
+                    </EventProvider>
+                ),
                 loader: authCheckLoader, // 로그인 권한 검사 로더
                 children: [
                     {
